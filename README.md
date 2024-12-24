@@ -4,4 +4,4 @@ This is a simple stage 1 script. It creates a stage 1 tarball of LearnixOS, grea
 - options for a fully systemd system and sysvinit (this is just for now, I'm working on seeing if I should make my own init systme or create a frontend for sinit)
 - and much more to come, some ideas that I'm thinking of are options for using udev alternatives like mdevd.
 ### Credits:
-- Kudos to LFS, literally the ONLY resource I'm using to create the script.
+- Kudos to LFS, literally the ONLY resource I'm using to create the scripts.
