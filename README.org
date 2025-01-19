@@ -13,9 +13,9 @@ This is a simple stage 1 script. It creates a stage 1 tarball of LearnixOS, grea
   ./cross.sh
   ./chrootprep.sh
   ./chroot.sh
-  ./afterchroot.sh
-  ./lfssystem.sh
-  ./finishlfssystem.sh
+  bash /afterchroot.sh
+  bash /lfssystem.sh
+  bash /finishlfssystem.sh
 #+end_src
 ** Credits:
 + Kudos to LFS, literally the ONLY resource I'm using to create the scripts.
