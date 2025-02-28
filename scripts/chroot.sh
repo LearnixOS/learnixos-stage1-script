@@ -4,7 +4,7 @@ set -e
 
 # --- Configuration ---
 # Define directories to be created within the chroot environment
-export CHROOT_ROOT_DIR=$LFS
+export CHROOT_ROOT_DIR="/" # Root directory of the chroot environment
 
 # System directories required for basic OS functionality
 declare -a system_dirs=(

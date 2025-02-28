@@ -31,11 +31,11 @@ echo "Running env.sh..."
 ./env.sh
 echo "Running cross.sh..."
 ./cross.sh
-echo "Running chroot.sh..."
-./chroot.sh
+cp -r files $LFS
+cp -r scripts/* $LFS
 EOF
 
-Stage 3: In-Chroot Operations
+# Stage 3: In-Chroot Operations
 echo "=== Entering Chroot Environment ==="
 chroot "$LFS" /usr/bin/env -i \
     HOME=/root \
@@ -44,6 +44,8 @@ chroot "$LFS" /usr/bin/env -i \
     PATH=/usr/bin:/usr/sbin \
     /bin/bash --login << 'CHROOT_EOF'
 set -e
+echo "Running chroot.sh..."
+./chroot.sh
 echo "Running afterchroot.sh..."
 bash /afterchroot.sh
 echo "Running lfssystem.sh..."
