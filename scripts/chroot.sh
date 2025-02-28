@@ -4,7 +4,7 @@ set -e
 
 # --- Configuration ---
 # Define directories to be created within the chroot environment
-export CHROOT_ROOT_DIR="/" # Root directory within chroot is just "/" conceptually
+export CHROOT_ROOT_DIR=$LFS
 
 # System directories required for basic OS functionality
 declare -a system_dirs=(
@@ -164,5 +164,4 @@ chmod -v 600  "${CHROOT_ROOT_DIR}/var/log/btmp"
 
 # --- Final Message and Execute Bash ---
 echo "Chroot environment setup complete."
-echo "Running /afterchroot.sh next (if it exists)..."
 echo "Executing login bash shell inside chroot..."
