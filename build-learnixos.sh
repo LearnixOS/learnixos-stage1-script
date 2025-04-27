@@ -1,57 +1,37 @@
 #!/bin/bash
-# LearnixOS-stage1 frontend
 
-# Configuration
-export LFS=/mnt/lfs # ajust as needed
+export GIT_ROOT=$PWD
 
-# Ensure script is run as root
-# if [ "$(id -u)" -ne 0 ]; then
-#     echo "This script must be run as root"
-#     exit 1
-# fi
+export MAKEFLAGS="-j$(nproc) -l$(nproc)"
+export CC=gcc
+export CXX=g++
+export CFLAGS="-march=generic -mtune=x86_64 -O3 -pipe"
+export CXXFLAGS=$CFLAGS
+export LXOS_ROOT=$PWD/lxos-root
 
-# Function to handle errors
-handle_error() {
-    echo "Error: $1 failed at line $2"
-    exit 1
-}
+echo "MAKEFLAGS=\"$MAKEFLAGS\""
+echo "CC=$CC CXX=$CXX"
+echo "CFLAGS=$CFLAGS"
+echo "CXXFLAGS=$CXXFLAGS"
+echo "LXOS_ROOT=\"$LXOS_ROOT\""
 
-trap 'handle_error $BASH_COMMAND $LINENO' ERR
+sleep 1
 
-# Stage 1: Preparation
-echo "=== Starting LearnixOS Build ==="
-echo "Running prep.sh..."
-./scripts/prep.sh
+mkdir $LXOS_ROOT
 
-# Stage 2: Build as lfs user
-echo "=== Switching to lfs user ==="
-su - lfs << EOF
-set -e
-echo "Running env.sh..."
-./env.sh
-echo "Running cross.sh..."
-./cross.sh
-cp -r files $LFS
-cp -r scripts/* $LFS
-EOF
+mkdir -pv $LXOS_ROOT/{etc,var} $LXOS_ROOT/usr/{bin,lib,sbin}
 
-# Stage 3: In-Chroot Operations
-echo "=== Entering Chroot Environment ==="
-chroot "$LFS" /usr/bin/env -i \
-    HOME=/root \
-    TERM="$TERM" \
-    PS1='(chroot) \u:\w\$ ' \
-    PATH=/usr/bin:/usr/sbin \
-    /bin/bash --login << 'CHROOT_EOF'
-set -e
-echo "Running chroot.sh..."
-./chroot.sh
-echo "Running afterchroot.sh..."
-bash /afterchroot.sh
-echo "Running lfssystem.sh..."
-bash /lfssystem.sh
-echo "Running finishlfssystem.sh..."
-bash /finishlfssystem.sh
-CHROOT_EOF
+for i in bin lib sbin; do
+  ln -sv usr/$i $LXOS_ROOT/$i
+done
 
-echo "=== LearnixOS Build Completed Successfully ==="
+mkdir -pv $LXOS_ROOT/lib64
+mkdir $LXOS_ROOT/tools
+
+echo "Downloading all sources into $LXOS_ROOT/sources..."
+wget --input-file=sources --continue --directory-prefix=$LXOS_ROOT/sources
+git clone https://github.com/LearnixOS/slim-tools.git $LXOS_ROOT/sources/slim-tools
+git clone https://github.com/LearnixOS/lxos-rc $LXOS_ROOT/sources/lxos-rc
+
+echo "Building Cross Compiled tools"
+$PWD/scripts
