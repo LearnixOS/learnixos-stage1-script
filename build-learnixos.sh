@@ -5,7 +5,7 @@ export GIT_ROOT=$PWD
 export MAKEFLAGS="-j$(nproc) -l$(nproc)"
 export CC=gcc
 export CXX=g++
-export CFLAGS="-march=generic -mtune=x86_64 -O3 -pipe"
+export CFLAGS="-march=x86_64 -mtune=generic -O3 -pipe"
 export CXXFLAGS=$CFLAGS
 export LXOS_ROOT=$PWD/lxos-root
 
