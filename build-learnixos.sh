@@ -34,4 +34,4 @@ git clone https://github.com/LearnixOS/slim-tools.git $LXOS_ROOT/sources/slim-to
 git clone https://github.com/LearnixOS/lxos-rc $LXOS_ROOT/sources/lxos-rc
 
 echo "Building Cross Compiled tools"
-$PWD/scripts
+$PWD/scripts/cross-toolchain.sh
