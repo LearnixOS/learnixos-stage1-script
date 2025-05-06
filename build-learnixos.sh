@@ -31,7 +31,9 @@ mkdir $LXOS_ROOT/tools
 echo "Downloading all sources into $LXOS_ROOT/sources..."
 wget --input-file=sources --continue --directory-prefix=$LXOS_ROOT/sources
 git clone https://github.com/LearnixOS/slim-tools.git $LXOS_ROOT/sources/slim-tools
-git clone https://github.com/LearnixOS/lxos-rc $LXOS_ROOT/sources/lxos-rc
+git clone https://github.com/LearnixOS/lxos-rc.git $LXOS_ROOT/sources/lxos-rc
+git clone https://github.com/LearnixOS/lxsh.git $LXOS_ROOT/sources/lxsh
+
 
 echo "Building Cross Compiled tools"
 $PWD/scripts/cross-toolchain.sh
