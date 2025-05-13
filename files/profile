@@ -1,13 +1,16 @@
-# Begin /etc/profile
+# /etc/profile
+#
+# System wide environment and startup programs.
 
-for i in $(locale); do
-  unset ${i%=*}
+# Set default path (/usr/sbin:/sbin:/bin included for non-LXOS Linux chroots).
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+
+# Set default umask.
+umask 022
+
+# Load profiles from /etc/profile.d
+for file in /etc/profile.d/*.sh; do
+    [ -r "$file" ] && . "$file"
 done
 
-if [[ "$TERM" = linux ]]; then
-  export LANG=C.UTF-8
-else
-  export LANG=en_US.UTF-8
-fi
-
-# End /etc/profile
+unset file

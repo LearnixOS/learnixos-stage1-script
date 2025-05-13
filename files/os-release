@@ -1,7 +1,8 @@
-NAME="Learnixos"
-VERSION="pre-alpha"
+NAME="SLIM/LearnixOS"
+PRETTY_NAME="SLIM/LearnixOS"
 ID=lxos
-PRETTY_NAME="Learnixos pre-alpha"
-VERSION_CODENAME="pre-alpha"
-HOME_URL="https://learnixos.github.io/"
-RELEASE_TYPE="pre-alpha"
+BUILD_ID=rolling
+HOME_URL="https://learnixos.github.io"
+DOCUMENTATION_URL=""
+SUPPORT_URL="https://github.com/LearnixOS"
+BUG_REPORT_URL="https://github.com/LearnixOS"
